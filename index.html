@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+    <meta charset="utf-8" name = 'viewport' content = 'width=device-width, initial-scale = 1.0'>
+    <link href='css/shoeCatalouge.css' rel='stylesheet'>
+    <link href = 'css/slider.css' rel='stylesheet'>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js'></script>
+    <script src='js/shoeCatalogue-DOM.js'></script>
+    <script src='js/shoeCatalogue-dom-buttons.js'></script>
+    <script src='js/shoeCatalogue-logic.js'></script>
+    <script type='text/x-template' class = 'title'>
+      {{title 'Shoe Catalogue'}}
+    </script>
+    <script type='text/x-template' class ='pictures'>
+      <ul id = 'image_slider'>
+        {{#each images}}
+          <li><img src={{image}} id = '{{num}}' ></li>
+        {{/each}}
+      </ul>
+    </script>
+    <script type='text/x-template' class = "colorFilter">
+      <p>Color:
+      <select id ='shoeColor'>
+        {{#makeColor 'listOfColor'}}
+          Select Color
+          White
+          Black
+          Red
+          Pink
+          Orange
+          Blue
+        {{/makeColor}}
+      </select>
+    </p>
+    </script>
+    <script type='text/x-template' class = "brandFilter">
+      <p>Brand:
+      <select id ='shoeBrand'>
+        {{#makeBrand 'listOfBrand'}}
+          Select Brand
+          Nike
+          Adidas
+          Jordan
+          Puma
+          Converse
+        {{/makeBrand}}
+      </select>
+    </p>
+    </script>
+    <script type = 'text/x-template' class = 'sizeFilter'>
+      <p>Size   :
+        <select id = 'shoeSize'>
+          {{#makeSize 'sizes'}}
+              Select Size,1,2,3,4,5,6,7,8,9,10
+          {{/makeSize}}
+        </select>
+      </p>
+    </script>
+    <script type = 'text/x-template' class = 'makeButton'>
+        {{#makeButton 'theButton'}}
+          Search
+        {{/makeButton}}
+    </script>
+  </head>
+  <body>
+    <div id ='header'></div>
+    <div class = 'row'>
+      <div class='offset-by-three col-6'>
+        <div class = 'container'>
+            <div class = 'image-slider-wrapper'></div>
+        </div>
+      </div>
+    </div>
+
+    <div class = 'row'>
+      <div class = 'col-4' id = 'theColors'></div>
+      <div class = 'col-4' id = 'theBrands'></div>
+      <div class = 'col-4' id = 'theSize'></div>
+    </div>
+
+    <div class = 'row'>
+      <div class = ' col-1 buttonPlace'></div>
+    </div>
+    <div class = 'row'>
+      <div class = 'col-6'>
+        <div class = ''>
+
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
