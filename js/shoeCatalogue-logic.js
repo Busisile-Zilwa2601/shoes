@@ -173,14 +173,14 @@ function shoeCatalogue(){
         }
     }
   }
-  function selectionCheckOut(){
-
-  }
-  function cancelAll(listReturned){
-    var currentList = returnBusket();
-
-
-  }
+  // function selectionCheckOut(){
+  //
+  // }
+  // function cancelAll(listReturned){
+  //   var currentList = returnBusket();
+  //
+  //
+  // }
   function filter(color, size, brand){
     var returnList = [];
     shoes.forEach(function(thisList){
@@ -196,11 +196,11 @@ function shoeCatalogue(){
   return{
     shoes,
     checkSize,
-    cancel,
     filter,
     addToCart,
     addNewShoe,
-    returnBusket
+    returnBusket,
+    checkOutAll
   }
 
 }
