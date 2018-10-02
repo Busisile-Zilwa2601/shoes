@@ -5,9 +5,9 @@ document.addEventListener('DOMContentLoaded', function(){
   var sizeBtn = document.getElementById('shoeSize');
   var searchBtn = document.getElementById('search');
   var collactor = [];
-  var sourceResults = document.querySelector('.screen-message').innerHTML;
-  var templateResults = Handlebars.compile(sourceResults);
-
+  var sourceResultsOne = document.querySelector('.screen-message-one').innerHTML;
+  var sourceResultsTwo = document.querySelector('.screen-message-two').innerHTML;
+  
   //fill the list;
   function selectedItems(){
     let theColor = changeOnColor();
@@ -16,11 +16,14 @@ document.addEventListener('DOMContentLoaded', function(){
     collactor =  handlerShoe.filter(theColor ,parseInt(theSize), theBrand);
     console.log(collactor);
     if(collactor.length > 0){
+      var templateResults = Handlebars.compile(sourceResultsOne);
       var data = templateResults({results: collactor});
       document.querySelector('.display-results').innerHTML = data;
     }
     else{
-      document.querySelector('.display-results').innerHTML = 'Theres no stock available';
+      var templateResults = Handlebars.compile(sourceResultsTwo);
+      var data = templateResults({results: [{brand: theBrand, size: theSize}], size : theSize});
+      document.querySelector('.display-results').innerHTML = data;
     }
   }
   searchBtn.addEventListener('click', selectedItems);

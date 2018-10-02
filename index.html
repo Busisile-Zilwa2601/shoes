@@ -62,13 +62,20 @@
           Search
         {{/makeButton}}
     </script>
-    <script type= 'text/x-template' class='screen-message'>
+    <script type= 'text/x-template' class='screen-message-one'>
       {{#each results}}
         <p>
           {{brand}}, There are {{in_stock}} in stock.
         </p>
       {{/each}}  
     </script>  
+    <script type= 'text/x-template' class='screen-message-two'>
+      {{#each results}}
+        <p>
+          There is no available stock for size:{{size}} of the shoe:{{brand}}, Please check a different size.
+        </p>
+      {{/each}}  
+    </script> 
   </head>
   <body>
     <div id ='header'></div>
@@ -90,7 +97,7 @@
       <div class = ' col-1 buttonPlace'></div>
     </div>
     <div class = 'row'>
-      <div class = 'col-6'>
+      <div class = 'col-4'>
         <div class = 'display-results'>
         </div>
       </div>
