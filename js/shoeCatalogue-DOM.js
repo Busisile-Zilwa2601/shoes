@@ -77,7 +77,7 @@ document.addEventListener('DOMContentLoaded', function(){
     return output;
   });
   document.querySelector('.buttonPlace').innerHTML = templateButton();
-  console.log(document.getElementById('search'));
+  
   //slide show
   var ul;
   var listItems;
@@ -93,7 +93,6 @@ document.addEventListener('DOMContentLoaded', function(){
 	   slider(ul);
   }
 
-
  function slider(ul){
   animate({
 		delay:17,
@@ -102,7 +101,11 @@ document.addEventListener('DOMContentLoaded', function(){
 			return Math.max(0, -1+2*p)
 		},
 		step:function(delta){
-			ul.style.left = '-'+ parseInt(currentImage * imageWidth + delta *imageWidth)+ 'px';
+      if(currentImage < imageNumber){
+        ul.style.left = '-'+ parseInt(currentImage * imageWidth + delta *imageWidth)+ 'px';
+      }else{
+        ul.style.right = '+'+ parseInt(imageWidth + delta *imageWidth)+ 'px';
+      }
 		},
 		callback:function(){
 			currentImage++;
@@ -110,26 +113,11 @@ document.addEventListener('DOMContentLoaded', function(){
 				slider(ul);
 			}
 			else{
-				var leftPosition = (imageNumber-1)*imageWidth;
-				setTimeout(function(){
-					goBack(leftPosition)
-				},2000);
-				setTimeout(function(){ slider(ul)},4000);
+        currentImage = 0;
+        slider(ul);
 			}
 		}
 	});
- }
- function goBack(leftPosition){
-	currentImage = 0;
-	var id = setInterval(function(){
-		if(leftPosition >=0){
-			ul.style.left = '-'+parseInt(leftPosition)+'px';
-			leftPosition -=imageWidth/10 ;
-		}
-		else{
-			clearInterval(id);
-		}
-	},17);
  }
  function animate(opts){
 	var start = new Date();
