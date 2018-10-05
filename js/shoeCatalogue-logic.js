@@ -86,11 +86,6 @@ function shoeCatalogue(){
       size : [1,2],
       in_stock: 11},
     {color : 'Red',
-      brand : 'Adidas',
-      price : 799,
-      size : [3,4],
-      in_stock: 10},
-    {color : 'Red',
       brand : 'Nike',
       price : 849,
       size : [3,4],
@@ -101,11 +96,43 @@ function shoeCatalogue(){
       size : [3,4],
       in_stock: 5},
     {color : 'Red',
+      brand : 'Adidas',
+      price : 799,
+      size : [3,4],
+      in_stock: 10},
+    {color : 'Red',
       brand : 'Puma',
       price : 799,
       size : [3,4],
       in_stock: 15},
   ];
+  //return all brands on shoes
+  function getBrands(){
+    var myBrand = [{brand: shoes[0].brand}];
+    for(let i = 1; i < shoes.length; i++){
+      myBrand.push({brand:shoes[i].brand});
+    }
+    for(let i = 0; i < myBrand.length-1; i++){
+      for(let j= 1; j < getLength(myBrand); j++){
+        if(myBrand[i].brand === myBrand[j].brand){
+          myBrand.splice(j,1);
+        }
+      }  
+    }
+    return myBrand;
+  }
+  function filterByBrand(){
+    let myBrand = getBrands();
+    for(let i = 0; i< myBrand.length; i++){
+      myBrand[i].list = filter('',null, myBrand[i].brand);
+    }
+    console.log(myBrand);
+    return myBrand;
+  }
+
+  function getLength(arr){
+    return arr.length;
+  }
   var currentStock = 0;
   var busket = [];
   var checkSize = function(value, list){
@@ -200,7 +227,9 @@ function shoeCatalogue(){
     addToCart,
     addNewShoe,
     returnBusket,
-    checkOutAll
+    checkOutAll, 
+    getBrands,
+    filterByBrand
   }
 
 }

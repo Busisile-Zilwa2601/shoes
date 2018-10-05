@@ -1,26 +1,70 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title></title>
-    <meta charset="utf-8" name = 'viewport' content = 'width=device-width, initial-scale = 1.0'>
-    <link href='css/shoeCatalouge.css' rel='stylesheet'>
-    <link href = 'css/slider.css' rel='stylesheet'>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js'></script>
-    <script src='js/shoeCatalogue-DOM.js'></script>
-    <script src='js/shoeCatalogue-dom-buttons.js'></script>
-    <script src='js/shoeCatalogue-logic.js'></script>
-    <script type='text/x-template' class = 'title'>
-      {{title 'Shoe Catalogue'}}
-    </script>
-    <script type='text/x-template' class ='pictures'>
-      <ul id = 'image_slider'>
+
+<head>
+  <title></title>
+  <meta charset="utf-8" name='viewport' content='width=device-width, initial-scale = 1.0'>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+    crossorigin="anonymous">
+  <link href='css/bootstrap.css' rel='stylesheet'>
+  <link href='css/shoeCatalouge.css' rel='stylesheet'>
+  <link href='css/slider.css' rel='stylesheet'>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js'></script>
+  <script src='js/shoeCatalogue-DOM.js'></script>
+  <script src='js/shoeCatalogue-dom-buttons.js'></script>
+  <script src='js/shoeCatalogue-logic.js'></script>
+  <script type='text/x-template' class='menuBar'>
+    <table >
+        <tr>
+        {{#each shoes}}<td data-toggle='modal' data-target='#{{brand}}' class='{{brand}}' >{{brand}}</td>{{/each}}
+      </tr>
+      </table>
+  </script>
+
+  <script type='text/x-template' class='modalShoe'>
+    {{#each shoes}}
+    <div class='modal fade' id='{{brand}}' tabindex="-1" role='dialog' aria-labelledby="formModalLabel">
+      <div class='modal-dialog' role='document'>
+        <div class='modal-content'>
+          <form class= '{{brand}}shoe'>
+            <div class='modal-header'>
+            </div>
+            <div class='modal-body'>
+              {{#each list}}
+              <div class ='row'>
+              <div class= 'offset-1'>      
+                <div>{{brand}}</div>
+                <div>R{{price}}</div>
+                <div>{{color}}</div>
+                <div>In stock available: {{in_stock}}</div>
+              </div>
+              <div class='offset-3'>
+                <button type="button" class='btn btn-primary viewShoe' name='button'>View</button>
+              </div>
+            </div>
+            <hr/>
+              {{/each}}
+               
+            </div>
+            <div class='modal-footer'>
+                   
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    {{/each}}
+  </script>
+
+  <script type='text/x-template' class='pictures'>
+    <ul id = 'image_slider'>
         {{#each images}}
           <li><img src={{image}} id = '{{num}}' ></li>
         {{/each}}
       </ul>
     </script>
-    <script type='text/x-template' class = "colorFilter">
-      <p>Color:
+  <script type='text/x-template' class="colorFilter">
+    <p>Color:
       <select id ='shoeColor'>
         {{#makeColor 'listOfColor'}}
           Select Color
@@ -34,8 +78,8 @@
       </select>
     </p>
     </script>
-    <script type='text/x-template' class = "brandFilter">
-      <p>Brand:
+  <script type='text/x-template' class="brandFilter">
+    <p>Brand:
       <select id ='shoeBrand'>
         {{#makeBrand 'listOfBrand'}}
           Select Brand
@@ -48,8 +92,8 @@
       </select>
     </p>
     </script>
-    <script type = 'text/x-template' class = 'sizeFilter'>
-      <p>Size   :
+  <script type='text/x-template' class='sizeFilter'>
+    <p>Size   :
         <select id = 'shoeSize'>
           {{#makeSize 'sizes'}}
               Select Size,1,2,3,4,5,6,7,8,9,10
@@ -57,51 +101,64 @@
         </select>
       </p>
     </script>
-    <script type = 'text/x-template' class = 'makeButton'>
-        {{#makeButton 'theButton'}}
+  <script type='text/x-template' class='makeButton'>
+    {{#makeButton 'theButton'}}
           Search
         {{/makeButton}}
     </script>
-    <script type= 'text/x-template' class='screen-message-one'>
-      {{#each results}}
+  <script type='text/x-template' class='screen-message-one'>
+    {{#each results}}
         <p>
           {{brand}}, There are {{in_stock}} in stock.
         </p>
       {{/each}}  
-    </script>  
-    <script type= 'text/x-template' class='screen-message-two'>
-      {{#each results}}
+    </script>
+  <script type='text/x-template' class='screen-message-two'>
+    {{#each results}}
         <p>
           There is no available stock for size:{{size}} of the shoe:{{brand}}, Please check a different size.
         </p>
       {{/each}}  
-    </script> 
-  </head>
-  <body>
-    <div id ='header'></div>
-    <div class = 'row'>
-      <div class='offset-by-three col-6'>
-        <div class = 'container'>
-            <div class = 'image-slider-wrapper'></div>
-        </div>
+    </script>
+</head>
+
+<body>
+  <div id='header' class='row'>
+    <div class='click-span'><i class="fas fa-bars"></i> Menu</div>
+    <div id='menu' class=' offset-1'></div>
+    <div class='offset-5 cart-arrow-down'><i class="fas fa-cart-arrow-down"></i></div>
+  </div>
+  <div>
+  </div>
+  <div class='row'>
+    <div class='col-5' id='menuBox'>
+      <div id='theColors'></div>
+      <div id='theBrands'></div>
+      <div id='theSize'></div>
+      <div class='buttonPlace'></div>
+    </div>
+    <div class='col-6'>
+      <div class='container'>
+        <div class='image-slider-wrapper'></div>
       </div>
     </div>
+  </div>
 
-    <div class = 'row'>
-      <div class = 'col-4' id = 'theColors'></div>
-      <div class = 'col-4' id = 'theBrands'></div>
-      <div class = 'col-4' id = 'theSize'></div>
-    </div>
-
-    <div class = 'row'>
-      <div class = ' col-1 buttonPlace'></div>
-    </div>
-    <div class = 'row'>
-      <div class = 'col-4'>
-        <div class = 'display-results'>
-        </div>
+  <div class='row'>
+    <div class='col-4'>
+      <div class='display-results'>
       </div>
     </div>
-    <script src='https://code.jquery.com/jquery-1.12.0.min.js'></script>
-  </body>
+  </div>
+  <div class='row'>
+    <div class='col-4'>
+      <button type="button" class='btn btn-primary addCart' name='button'><i class="fas fa-cart-arrow-down"></i>Add To
+        Cart</button>
+    </div>
+  </div>
+  <div id='modals'></div>
+  <script src='https://code.jquery.com/jquery-1.12.0.min.js'></script>
+  <script src='js/bootstrap.js'></script>
+</body>
+
 </html>

@@ -1,12 +1,5 @@
 document.addEventListener('DOMContentLoaded', function(){
-  //title
-  var sourceTitle = document.querySelector('.title').innerHTML;
-  var templateTitle = Handlebars.compile(sourceTitle);
-  Handlebars.registerHelper('title', function(text){
-    text = Handlebars.Utils.escapeExpression(text);
-    return new Handlebars.SafeString('<h1>'+ text+ '</h1>');
-  });
-  document.getElementById('header').innerHTML = templateTitle();
+
   //the pictures
   var sourcePictures = document.querySelector('.pictures').innerHTML;
   var templatePictures = Handlebars.compile(sourcePictures);
@@ -72,7 +65,7 @@ document.addEventListener('DOMContentLoaded', function(){
     var output = '';
     for(var val in theList){
       var item = theList[val].trim();
-      output = '<button id = "search">'+item+'</button>';
+      output = '<button id = "search" class="btn btn-primary">'+item+'</button>';
     }
     return output;
   });

@@ -20,9 +20,9 @@ describe('The Shoe Catalogue function', function(){
       {color:"Blue",brand:"Nike",price:999,size:[3,6,8],in_stock:18},
       {color:"Blue",brand:"Converse",price:599,size:[2,4,6],in_stock:9},
       {color:"Orange",brand:"Adidas",price:499,size:[1,2],in_stock:11},
-      {color:"Red",brand:"Adidas",price:799,size:[3,4],in_stock:10},
       {color:"Red",brand:"Nike",price:849,size:[3,4],in_stock:20},
       {color:"Red",brand:"Jordan",price:1000,size:[3,4],in_stock:5},
+      {color:"Red",brand:"Adidas",price:799,size:[3,4],in_stock:10},
       {color:"Red",brand:"Puma",price:799,size:[3,4],in_stock:15}] );
     });
     it("it should return a list of object(s) with all the Pink shoes", function(){

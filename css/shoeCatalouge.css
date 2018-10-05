@@ -46,7 +46,11 @@ html{
   .offset-by-one-third{ margin-left: 34.6666666667%; }
   .offset-by-two-thirds{ margin-left: 69.3333333333%; }
   .offset-by-one-half{ margin-left: 52%; }
+  
   .buttonPlace{
     float: right;
   }
 }
+/* button, select {
+  width: 200px;
+} */
