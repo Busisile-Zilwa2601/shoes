@@ -51,6 +51,6 @@ html{
     float: right;
   }
 }
-/* button, select {
-  width: 200px;
-} */
+.fa-cart-arrow-down{
+  cursor: pointer;
+}

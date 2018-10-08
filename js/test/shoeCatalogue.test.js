@@ -73,9 +73,9 @@ describe('The Shoe Catalogue function', function(){
         myShoe.addToCart(myShoe.filter('Red', 3, 'Nike'));
         myShoe.addToCart(myShoe.filter('White', 8, 'Jordan'));
         assert.deepEqual(myShoe.returnBusket(),
-        [{color:"White",brand:"Nike",price:999,size:[4,5,6,7,8,9,10],in_stock:9},
-         {color:"Red",brand:"Nike",price:849,size:[3,4],in_stock:19},
-         {color:"White",brand:"Jordan",price:1500,size:[7,8,9,10],in_stock:3}]);
+        [{color:"White",brand:"Nike",price:999},
+         {color:"Red",brand:"Nike",price:849},
+         {color:"White",brand:"Jordan",price:1500}]);
       });
     });
   });

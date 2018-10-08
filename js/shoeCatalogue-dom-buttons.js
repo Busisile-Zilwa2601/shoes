@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', function () {
   var templateModal = Handlebars.compile(sourceModal);
   var dataModal = templateModal({shoes :handlerShoe.filterByBrand()});
   document.getElementById('modals').innerHTML = dataModal;
+
   
   //variables
   var colorBtn = document.getElementById('shoeColor');
@@ -31,7 +32,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (collactor.length > 0) {
       var templateResults = Handlebars.compile(sourceResultsOne);
       var data = templateResults({
-        results: collactor
+        results: [{brand :collactor[0].brand, in_stock:collactor[0].in_stock}]
       });
       document.querySelector('.display-results').innerHTML = data;
     } else {
@@ -47,6 +48,8 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
   searchBtn.addEventListener('click', selectedItems);
+
+
 
   function changeOnColor() {
     return colorBtn.options[colorBtn.selectedIndex].value;
@@ -73,5 +76,16 @@ document.addEventListener('DOMContentLoaded', function () {
     } else {
       document.getElementById('menuBox').style.visibility = 'hidden';
     }
+  });
+  //add to cart
+  document.querySelector('.addCart').addEventListener('click', function(){
+    let tempStock = handlerShoe.addToCart(collactor);
+    console.log(tempStock);
   }); 
+  document.querySelector('.fa-cart-arrow-down').addEventListener('click', function(){
+    var sourceModal = document.querySelector('.addedToCart').innerHTML;
+    var templateModal = Handlebars.compile(sourceModal);
+    var dataModal = templateModal({theBusket :handlerShoe.returnBusket()});
+    document.getElementById('modal-busket').innerHTML = dataModal;
+  });
 });

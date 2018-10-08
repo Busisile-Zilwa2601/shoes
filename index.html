@@ -27,7 +27,7 @@
       <div class='modal-dialog' role='document'>
         <div class='modal-content'>
           <form class= '{{brand}}shoe'>
-            <div class='modal-header'>
+            <div class='modal-header'>close
             </div>
             <div class='modal-body'>
               {{#each list}}
@@ -39,16 +39,14 @@
                 <div>In stock available: {{in_stock}}</div>
               </div>
               <div class='offset-3'>
-                <button type="button" class='btn btn-primary viewShoe' name='button'>View</button>
+                  <button type="button" class='btn btn-primary addCart' name='button' value='{{color}}'><i class="fas fa-cart-arrow-down"></i>Add To
+                    Cart</button>
               </div>
             </div>
             <hr/>
               {{/each}}
-               
             </div>
-            <div class='modal-footer'>
-                   
-            </div>
+            <div class='modal-footer'></div>
           </form>
         </div>
       </div>
@@ -56,6 +54,29 @@
     {{/each}}
   </script>
 
+ <script type='text/x-template' class='addedToCart'>
+  <div class='modal fade' id='busket' tabindex="-1" role='dialog' aria-labelledby="formModalLabel">
+    <div class='modal-dialog' role='document'>
+      <div class='modal-content'>
+        <form>
+          <div class='modal-header'></div>
+          <div class='modal-body'>
+            {{#each theBusket}}
+              <div>{{image_url}}</div>
+              <div>{{brand}}</div>
+              <div>{{color}}</div>
+              <div>R{{price}}</div>
+              <hr />
+            {{/each}}  
+          </div>
+          <div class='modal-footer'>
+            <button>check-Out</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>   
+ </script>
   <script type='text/x-template' class='pictures'>
     <ul id = 'image_slider'>
         {{#each images}}
@@ -126,18 +147,20 @@
   <div id='header' class='row'>
     <div class='click-span'><i class="fas fa-bars"></i> Menu</div>
     <div id='menu' class=' offset-1'></div>
-    <div class='offset-5 cart-arrow-down'><i class="fas fa-cart-arrow-down"></i></div>
+    <div class='offset-5 cart-arrow-down'><i class="fas fa-cart-arrow-down" data-toggle='modal' data-target='#busket'></i></div>
   </div>
   <div>
   </div>
   <div class='row'>
-    <div class='col-5' id='menuBox'>
+    <div class='' id='menuBox'>
       <div id='theColors'></div>
       <div id='theBrands'></div>
       <div id='theSize'></div>
       <div class='buttonPlace'></div>
+      <button type="button" class='btn btn-primary addCart' name='button'><i class="fas fa-cart-arrow-down"></i>Add To
+        Cart</button>
     </div>
-    <div class='col-6'>
+    <div class='col-6 offset-1'>
       <div class='container'>
         <div class='image-slider-wrapper'></div>
       </div>
@@ -152,11 +175,11 @@
   </div>
   <div class='row'>
     <div class='col-4'>
-      <button type="button" class='btn btn-primary addCart' name='button'><i class="fas fa-cart-arrow-down"></i>Add To
-        Cart</button>
     </div>
   </div>
   <div id='modals'></div>
+  <div id='modalsList'></div>
+  <div id='modal-busket'></div>
   <script src='https://code.jquery.com/jquery-1.12.0.min.js'></script>
   <script src='js/bootstrap.js'></script>
 </body>

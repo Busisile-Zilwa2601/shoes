@@ -126,7 +126,6 @@ function shoeCatalogue(){
     for(let i = 0; i< myBrand.length; i++){
       myBrand[i].list = filter('',null, myBrand[i].brand);
     }
-    console.log(myBrand);
     return myBrand;
   }
 
@@ -183,9 +182,11 @@ function shoeCatalogue(){
         if((myBrand === shoes[i].brand)&&(myColor === shoes[i].color) ){
           myStock -= 1;
           pos = i;
-          busket.push({color:myColor, brand:myBrand, price:listReturned[0].price, size:sizeList, in_stock:myStock});
+          busket.push({color:myColor, brand:myBrand, price:listReturned[0].price});
         }
       }
+      console.log(myStock);
+      return myStock;
     }
   }
   function checkOutAll(){
