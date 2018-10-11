@@ -101,13 +101,8 @@ document.addEventListener('DOMContentLoaded', function () {
   //add to cart
   window.addMyBusket = function addMyBusket(event){
     console.log('button pressed...')
-    // $(document).ready(function(){
-    //   $('#addToCart').click(function(){
-    //     console.log($('#addToCart'))
-    //     let tempStock = handlerShoe.addToCart(collactor);
-    //     console.log(tempStock)
-    //   });
-    // });
+    tempStock = handlerShoe.addToCart(collactor);
+    console.log(tempStock);
   }
   // addMyBusket();
   // .on('click', function(){
