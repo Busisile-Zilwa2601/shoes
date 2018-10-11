@@ -1,6 +1,6 @@
 
 @media(min-width:768px){
-	.container{
+	.container-slide{
 		width:58%;
 		height:inherit;
 		padding:20px;
@@ -25,22 +25,27 @@
 		clear :left;
 	}
 	img{
-		width : 350px;
-		height: 250px;
+		width : 150px;
+		height: 150px;
+		margin-left: 10px;
 	}
 	#menuBox{
 		margin-top : 0.5rem;
-		height: 350px;
-		width: 250px;
+		width: 350px;
+		/* border: 1px solid grey; */
 		visibility: hidden;
+		padding: 15px;
 	}
 	.click-span{
 		cursor: pointer;
+		padding-top: 5px;
 	}
 	#header{
 		background-color: aqua;
 		border-radius: 0.05rem;
 		margin: 10px;
 		padding: 5px 0px 5px 2px;
+		max-height: 35px;
+		overflow: hidden;
 	}
 }

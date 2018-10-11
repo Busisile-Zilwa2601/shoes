@@ -1,18 +1,4 @@
 document.addEventListener('DOMContentLoaded', function(){
-
-  //the pictures
-  var sourcePictures = document.querySelector('.pictures').innerHTML;
-  var templatePictures = Handlebars.compile(sourcePictures);
-  var imageData = templatePictures({images: [{image:'data/blackAddidas.jpeg', num : 'image1'},{image: 'data/BlackConverseAllStar.jpeg', num : 'image2'},
-                                             {image:'data/blackJordan.jpg', num : 'image3'},{image: 'data/blackNike.jpg', num : 'image4'},{image:'data/blackPuma.jpeg', num : 'image5'},
-                                             {image:'data/blueConverse.jpg', num : 'image6'},{image:'data/buleNike.jpeg', num : 'image7'},{image:'data/OrangeAddidas.jpeg', num : 'image8'},
-                                             {image:'data/pinkAdidas.jpg', num : 'image9'},{image:'data/pinkConverseAllStar.jpeg', num : 'image10'},{image:'data/pinkNike.jpg', num : 'image11'},
-                                             {image:'data/pinkPuma.jpg', num : 'image12'},{image:'data/redAdids.jpg', num : 'image13'},{image:'data/redJordan.jpg', num : 'image14'},
-                                             {image:'data/redNike.jpg', num : 'image15'},{image:'data/redPuma.jpg', num : 'image16'},{image:'data/whiteAdidas.jpeg', num : 'image17'},
-                                             {image:'data/whiteConverseAllStar.jpeg', num : 'image18'},{image:'data/whiteJordan.jpg', num : 'image19'},{image:'data/whiteNike.jpeg', num : 'image20'},
-                                             {image:'data/whitePuma.jpeg', num : 'image21'}
-                                           ]});
-  document.querySelector('.image-slider-wrapper').innerHTML = imageData;
   //color filter
   var sourceFilterColor = document.querySelector('.colorFilter').innerHTML;
   var templateFilterColor = Handlebars.compile(sourceFilterColor);
@@ -65,68 +51,68 @@ document.addEventListener('DOMContentLoaded', function(){
     var output = '';
     for(var val in theList){
       var item = theList[val].trim();
-      output = '<button id = "search" class="btn btn-primary">'+item+'</button>';
+      output = '<button id = "search" class="btn btn-primary" data-toggle="modal" data-target="#search-shoes">'+item+'</button>';
     }
     return output;
   });
   document.querySelector('.buttonPlace').innerHTML = templateButton();
   
   //slide show
-  var ul;
-  var listItems;
-  var imageWidth;
-  var imageNumber;
-  var currentImage = 0;
-  function init(){
-	   ul = document.getElementById('image_slider');
-     listItems = ul.children;
-	   imageNumber = listItems.length;
-	   imageWidth = listItems[0].children[0].offsetWidth;
-	   ul.style.width = parseInt(imageWidth*imageNumber)+'px';
-	   slider(ul);
-  }
+//   var ul;
+//   var listItems;
+//   var imageWidth;
+//   var imageNumber;
+//   var currentImage = 0;
+//   function init(){
+// 	   ul = document.getElementById('image_slider');
+//      listItems = ul.children;
+// 	   imageNumber = listItems.length;
+// 	   imageWidth = listItems[0].children[0].offsetWidth;
+// 	   ul.style.width = parseInt(imageWidth*imageNumber)+'px';
+// 	   slider(ul);
+//   }
 
- function slider(ul){
-  animate({
-		delay:17,
-		duration:3000,
-		delta:function(p){
-			return Math.max(0, -1+2*p)
-		},
-		step:function(delta){
-      if(currentImage < imageNumber){
-        ul.style.left = '-'+ parseInt(currentImage * imageWidth + delta *imageWidth)+ 'px';
-      }else{
-        ul.style.right = '+'+ parseInt(imageWidth + delta *imageWidth)+ 'px';
-      }
-		},
-		callback:function(){
-			currentImage++;
-			if(currentImage < imageNumber - 1){
-				slider(ul);
-			}
-			else{
-        currentImage = 0;
-        slider(ul);
-			}
-		}
-	});
- }
- function animate(opts){
-	var start = new Date();
-	var id = setInterval(function(){
-		var timePassed = new Date() - start;
-		var progress = timePassed/opts.duration;
-		if(progress > 1){
-			progress = 1;
-		}
-		var delta = opts.delta(progress);
-		opts.step(delta);
-		if(progress == 1){
-			clearInterval(id);
-			opts.callback();
-		}
-	},opts.delay || 17);
- }
-window.onload = init;
+//  function slider(ul){
+//   animate({
+// 		delay:17,
+// 		duration:3000,
+// 		delta:function(p){
+// 			return Math.max(0, -1+2*p)
+// 		},
+// 		step:function(delta){
+//       if(currentImage < imageNumber){
+//         ul.style.left = '-'+ parseInt(currentImage * imageWidth + delta *imageWidth)+ 'px';
+//       }else{
+//         ul.style.right = '+'+ parseInt(imageWidth + delta *imageWidth)+ 'px';
+//       }
+// 		},
+// 		callback:function(){
+// 			currentImage++;
+// 			if(currentImage < imageNumber - 1){
+// 				slider(ul);
+// 			}
+// 			else{
+//         currentImage = 0;
+//         slider(ul);
+// 			}
+// 		}
+// 	});
+//  }
+//  function animate(opts){
+// 	var start = new Date();
+// 	var id = setInterval(function(){
+// 		var timePassed = new Date() - start;
+// 		var progress = timePassed/opts.duration;
+// 		if(progress > 1){
+// 			progress = 1;
+// 		}
+// 		var delta = opts.delta(progress);
+// 		opts.step(delta);
+// 		if(progress == 1){
+// 			clearInterval(id);
+// 			opts.callback();
+// 		}
+// 	},opts.delay || 17);
+//  }
+// window.onload = init;
 });

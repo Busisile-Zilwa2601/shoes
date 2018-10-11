@@ -50,7 +50,30 @@ html{
   .buttonPlace{
     float: right;
   }
+  
+  .theShoe{
+    border: 0.2px;
+    width: 200px;
+    height: inherit;
+    cursor: pointer;
+  }
+  .theShoe:hover{
+    background-color: beige;
+  }
 }
 .fa-cart-arrow-down{
+  cursor: pointer;
+  padding-top: 0px;
+}
+div.clickable input{
+  display: inline-block;
+  margin-bottom: 0.5rem;
+  margin-left: 2rem;
+}
+div.clickable{
+  padding: 5px ;
+  margin-right: 1px;
+  text-align: center;
+  border-right: 1px solid #E1E1E1;
   cursor: pointer;
 }
