@@ -104,11 +104,6 @@ document.addEventListener('DOMContentLoaded', function () {
     tempStock = handlerShoe.addToCart(collactor);
     console.log(tempStock);
   }
-  // addMyBusket();
-  // .on('click', function(){
-  //   let tempStock = handlerShoe.addToCart(collactor);
-  //   console.log(tempStock);
-  // });
   document.querySelector('.fa-cart-arrow-down').addEventListener('click', function () {
     var sourceModal = document.querySelector('.addedToCart').innerHTML;
     var templateModal = Handlebars.compile(sourceModal);

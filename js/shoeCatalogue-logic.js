@@ -196,7 +196,7 @@ function shoeCatalogue(){
               present = true;
             }
             thisList.in_stock += newStack;
-              console.log(thisList);
+              // console.log(thisList);
           }
         });
       if(!present){
@@ -206,7 +206,7 @@ function shoeCatalogue(){
                                size: [newSize],
                                in_stock: newStack
                              });
-        console.log(shoes[shoes.length-1]);
+        // console.log(shoes[shoes.length-1]);
       }
       return present;
   }
@@ -228,7 +228,7 @@ function shoeCatalogue(){
           busket.push({color:myColor, brand:myBrand, price:listReturned[0].price, image:listReturned[0].image});
         }
       }
-      console.log(myStock);
+      // console.log(myStock);
       return myStock;
     }
   }
