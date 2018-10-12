@@ -52,13 +52,23 @@
         <div class='modal-content'>
           <form>
             <div class='modal-header'>Results</div>
-            <div class='modal-body'>
+            <div class='modal-body offset-4'>
               {{#each found}}
                 <img src='{{image}}' />
                 <div>{{color}}</div>
                 <div>R{{price}}</div>
-                <hr />
+                <div>
+                  {{#each size}}
+                  <label class='size-class'>
+                      {{this}}
+                    <input type='checkbox' value='{{this}}'>
+                  </label>    
+                  {{/each}}
+                </div>
               {{/each}}  
+            </div>
+            <div class='modal-body offset-4'>
+              <p>{{text}}</p>
             </div>
             <div class='modal-footer'>
               <button class='btn btn-secondary' data-dismiss="modal">close</button> 
@@ -142,15 +152,6 @@
       </select>
     </p>
     </script>
-  <script type='text/x-template' class='sizeFilter'>
-    <p>Size   :
-        <select id = 'shoeSize'>
-          {{#makeSize 'sizes'}}
-              Select Size,1,2,3,4,5,6,7,8,9,10
-          {{/makeSize}}
-        </select>
-      </p>
-    </script>
   <script type='text/x-template' class='makeButton'>
     {{#makeButton 'theButton'}}
           Search
@@ -185,7 +186,6 @@
     <div class='' id='menuBox'>
       <div id='theColors'></div>
       <div id='theBrands'></div>
-      <div id='theSize'></div>
       <div class='buttonPlace'></div>
     </div>
     <div class='slider'></div>   

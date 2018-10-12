@@ -282,12 +282,17 @@ button::-moz-focus-inner,
   border-style: none;
 }
 
-input[type="radio"],
+/* input[type="radio"], */
 input[type="checkbox"] {
+  box-sizing: border-box;
+  visibility: visible;
+  padding:0;
+  font-size: 2px;
+}
+input[type="radio"] {
   box-sizing: border-box;
   visibility: hidden;
   padding:0;
-  top:1;
 }
 
 input[type="date"],

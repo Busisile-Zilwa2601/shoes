@@ -27,21 +27,6 @@ document.addEventListener('DOMContentLoaded', function(){
     return output;
   });
   document.getElementById('theBrands').innerHTML = templateFilterBrand();
-
-  //Size drop down
-  var sourceSize = document.querySelector('.sizeFilter').innerHTML;
-  var templateSize = Handlebars.compile(sourceSize);
-  Handlebars.registerHelper('makeSize', function(name, options){
-    var theList = options.fn();
-    theList = theList.trim().split(',');
-    var output = '';
-    for(var val in theList){
-      var item = theList[val].trim();
-      output += '<option value = "'+item+'">'+item+ '</option>';
-    }
-    return output;
-  });
-  document.getElementById('theSize').innerHTML = templateSize();
   //make button
   var souceButton = document.querySelector('.makeButton').innerHTML;
   var templateButton = Handlebars.compile(souceButton);

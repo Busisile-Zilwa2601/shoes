@@ -21,7 +21,6 @@ document.addEventListener('DOMContentLoaded', function () {
   //------------------------------------------------------------------------
   //Display all shoes of selected brand
   let items = document.querySelectorAll('.clickable');
-
   for (let i = 0; i < items.length; i++) {
     items[i].addEventListener('click', function () {
       let $this = $(this),
@@ -55,20 +54,21 @@ document.addEventListener('DOMContentLoaded', function () {
   function selectedItems() {
     let theColor = changeOnColor();
     let theBrand = changeOnBrand();
-    let theSize = changeOnSize();
+    // let theSize = changeOnSize();
     //-------------------------------------------------------------------------------
     //create a modal for search shoe
     let sourceModalSearch = document.querySelector('.searchedShoe').innerHTML;
     let templateModalSearch = Handlebars.compile(sourceModalSearch);
     //-------------------------------------------------------------------------------
-    collactor = handlerShoe.filter(theColor, parseInt(theSize), theBrand);
+    collactor = handlerShoe.filter(theColor, null, theBrand);
     if (collactor.length > 0) {
       let dataModalSearch = templateModalSearch({
         found: collactor
       });
       document.getElementById('modal-search').innerHTML = dataModalSearch;
     } else {
-      // add some code
+      let dataModalSearch = templateModalSearch({text: 'Out of stock'});
+      document.getElementById('modal-search').innerHTML = dataModalSearch;
     }
   }
   searchBtn.addEventListener('click', selectedItems);
@@ -83,11 +83,6 @@ document.addEventListener('DOMContentLoaded', function () {
   }
   brandBtn.addEventListener('change', changeOnBrand);
 
-  function changeOnSize() {
-    return sizeBtn.options[sizeBtn.selectedIndex].value;
-  }
-  sizeBtn.addEventListener('change', changeOnSize);
-
   window.addEventListener('load', function () {
     document.getElementById('menuBox').style.visibility = 'hidden';
   });
@@ -100,9 +95,19 @@ document.addEventListener('DOMContentLoaded', function () {
   });
   //add to cart
   window.addMyBusket = function addMyBusket(event){
-    console.log('button pressed...')
+    let itemsListSize = [];
+    $('.size-class').click(function(){
+      var $this = $(this), $chk = $this.find('input:checkbox'), checked = $chk.is(':checked'); 
+      $chk.prop('checked', !checked);
+      $this.toggleClass('checked', !checked);
+      if($chk.is(':checked')){
+        console.log('checkbox pressed...')
+        console.log($chk.value);
+        itemsListSize.push($chk.val());
+      }
+    });
     tempStock = handlerShoe.addToCart(collactor);
-    console.log(tempStock);
+    
   }
   document.querySelector('.fa-cart-arrow-down').addEventListener('click', function () {
     var sourceModal = document.querySelector('.addedToCart').innerHTML;
