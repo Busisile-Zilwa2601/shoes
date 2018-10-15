@@ -47,42 +47,42 @@ document.addEventListener('DOMContentLoaded', function () {
   var searchBtn = document.getElementById('search');
   var menuBtn = document.querySelector('.click-span');
   var collactor = [];
-  var sourceResultsOne = document.querySelector('.screen-message-one').innerHTML;
-  var sourceResultsTwo = document.querySelector('.screen-message-two').innerHTML;
+  //-------------------------------------------------------------------------------
+  //create searched shoe
+  let sourceSearched = document.querySelector('.searchedShoe').innerHTML;
+  let templateSearched = Handlebars.compile(sourceSearched);
   //-------------------------------------------------------------------------------
   //fill the list on menu box;
   function selectedItems() {
     let theColor = changeOnColor();
-    let theBrand = changeOnBrand();
-    // let theSize = changeOnSize();
-    //-------------------------------------------------------------------------------
-    //create a modal for search shoe
-    let sourceModalSearch = document.querySelector('.searchedShoe').innerHTML;
-    let templateModalSearch = Handlebars.compile(sourceModalSearch);
+    let theBrand = changeOnBrand();  
     //-------------------------------------------------------------------------------
     collactor = handlerShoe.filter(theColor, null, theBrand);
     if (collactor.length > 0) {
-      let dataModalSearch = templateModalSearch({
+      let dataSearched = templateSearched({
         found: collactor
       });
-      document.getElementById('modal-search').innerHTML = dataModalSearch;
+      document.getElementById('all-data').innerHTML = '';
+      document.getElementById('all-data').innerHTML = dataSearched;
     } else {
-      let dataModalSearch = templateModalSearch({text: 'Out of stock'});
-      document.getElementById('modal-search').innerHTML = dataModalSearch;
+      let dataSearched = templateSearched({text: 'Out of stock'});
+      document.getElementById('all-data').innerHTML = '';
+      document.getElementById('all-data').innerHTML = dataSearched;
     }
+    document.getElementById('menuBox').style.visibility = 'hidden';
   }
   searchBtn.addEventListener('click', selectedItems);
-
+  //Drop down of color on the Menu
   function changeOnColor() {
     return colorBtn.options[colorBtn.selectedIndex].value;
   }
   colorBtn.addEventListener('change', changeOnColor);
-
+  //Drop down for brand search on the menu
   function changeOnBrand() {
     return brandBtn.options[brandBtn.selectedIndex].value;
   }
   brandBtn.addEventListener('change', changeOnBrand);
-
+  //Window must load with menu hidden
   window.addEventListener('load', function () {
     document.getElementById('menuBox').style.visibility = 'hidden';
   });
@@ -93,22 +93,21 @@ document.addEventListener('DOMContentLoaded', function () {
       document.getElementById('menuBox').style.visibility = 'hidden';
     }
   });
+  //-----------------------------------------------------------------------------
   //add to cart
-  window.addMyBusket = function addMyBusket(event){
-    let itemsListSize = [];
-    $('.size-class').click(function(){
-      var $this = $(this), $chk = $this.find('input:checkbox'), checked = $chk.is(':checked'); 
-      $chk.prop('checked', !checked);
-      $this.toggleClass('checked', !checked);
-      if($chk.is(':checked')){
-        console.log('checkbox pressed...')
-        console.log($chk.value);
-        itemsListSize.push($chk.val());
-      }
+  window.addMyBusket = function addMyBusket(){
+    let dropDown = document.getElementById('sizeDropDown');
+    let size =  dropDown.options[dropDown.selectedIndex].value
+    let stockReturn = handlerShoe.addToCart(collactor, size);
+    collactor[0].in_stock = stockReturn;
+    let dataSearched = templateSearched({
+      found: collactor
     });
-    tempStock = handlerShoe.addToCart(collactor);
-    
+    document.getElementById('all-data').innerHTML = '';
+    document.getElementById('all-data').innerHTML = dataSearched;
   }
+  //-------------------------------------------------------------------------------
+  //View the items added on the busket
   document.querySelector('.fa-cart-arrow-down').addEventListener('click', function () {
     var sourceModal = document.querySelector('.addedToCart').innerHTML;
     var templateModal = Handlebars.compile(sourceModal);
@@ -117,4 +116,11 @@ document.addEventListener('DOMContentLoaded', function () {
     });
     document.getElementById('modal-busket').innerHTML = dataModal;
   });
+  //-------------------------------------------------------------------------------
+  let sourceQuickView = document.querySelector('.shoe-quick-view').innerHTML;
+  let templateQuickView = Handlebars.compile(sourceQuickView);
+  let dataQuickView = templateQuickView({
+    shoes : handlerShoe.filter('', null, '')
+  });
+  document.getElementById('display-results').innerHTML = dataQuickView;
 });

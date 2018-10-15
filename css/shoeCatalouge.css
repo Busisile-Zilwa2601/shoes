@@ -57,8 +57,15 @@ html{
     height: inherit;
     cursor: pointer;
   }
+  .quick-view{
+    visibility: hidden;
+  }
+
   .theShoe:hover{
     background-color: beige;
+  }
+  .theShoe :hover .quick-view{
+    visibility: visible;
   }
 }
 .fa-cart-arrow-down{

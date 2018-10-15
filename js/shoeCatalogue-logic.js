@@ -210,28 +210,20 @@ function shoeCatalogue(){
       }
       return present;
   }
-  function addToCart(listReturned){
-    if(listReturned.length === 1){
-      var myBrand = listReturned[0].brand;
-      var myColor = listReturned[0].color;
-      var myStock = listReturned[0].in_stock;
-      var myImage = listReturned[0].image;
-      var sizeList = []
-      for(var i = 0; i < (listReturned[0].size).length; i++){
-        sizeList.push((listReturned[0].size)[i]);
-      }
-      var pos = 0;
+  function addToCart(shoe, sizeSelected){
+    if(shoe.length != 0){
       for(var i = 0; i < shoes.length; i++){
-        if((myBrand === shoes[i].brand)&&(myColor === shoes[i].color) ){
-          myStock -= 1;
-          pos = i;
-          busket.push({color:myColor, brand:myBrand, price:listReturned[0].price, image:listReturned[0].image});
+        if((shoe[0].brand === shoes[i].brand)&&(shoe[0].color === shoes[i].color) ){
+          if(shoe[0].in_stock > 0){
+            shoe[0].in_stock -= 1;
+            busket.push({color:shoe[0].color, brand:shoe[0].brand, price:shoe[0].price, image:shoe[0].image, size:sizeSelected});
+          }
         }
       }
-      // console.log(myStock);
-      return myStock;
+      return shoe[0].in_stock;
     }
   }
+
   function checkOutAll(){
     var list = returnBusket();
     if(list.length != 0){

@@ -13,17 +13,20 @@
   <script src='js/shoeCatalogue-DOM.js'></script>
   <script src='js/shoeCatalogue-dom-buttons.js'></script>
   <script src='js/shoeCatalogue-logic.js'></script>
+  
+  <!-- The menu bar -->
   <script type='text/x-template' class='menuBar'>
     {{#each shoes}}
       <div class='clickable col-2'>{{brand}}
         <input type='radio' name='brandName' class='' value='{{brand}}' />
       </div>
     {{/each}}
-    <!-- <td class='getAll'><a href='#getAll'>All-Shoes</td> -->
   </script>
+  <!-- end of menu bar -->
+
   <!-- Modal viewing items in the cart -->
- <script type='text/x-template' class='addedToCart'>
-  <div class='modal fade' id='busket' tabindex="-1" role='dialog' aria-labelledby="formModalLabel">
+  <script type='text/x-template' class='addedToCart'>
+    <div class='modal fade' id='busket' tabindex="-1" role='dialog' aria-labelledby="formModalLabel">
     <div class='modal-dialog' role='document'>
       <div class='modal-content'>
         <form>
@@ -31,6 +34,7 @@
           <div class='modal-body'>
             {{#each theBusket}}
               <img src='{{image}}' />
+              <div>{{size}}</div>
               <div>{{color}}</div>
               <div>R{{price}}</div>
               <hr />
@@ -45,84 +49,82 @@
   </div>   
   </script>
   <!--End Modal -->
-  <!--Modal for searched shoe-->
+
+  <!-- Shoe search -->
   <script type='text/x-template' class='searchedShoe'>
-    <div class='modal fade' id='search-shoes' tabindex="-1" role='dialog' aria-labelledby="formModalLabel">
-      <div class='modal-dialog' role='document'>
-        <div class='modal-content'>
-          <form>
-            <div class='modal-header'>Results</div>
-            <div class='modal-body offset-4'>
+    <div class='header'>Results</div>
+    <div class='body-1'>
               {{#each found}}
                 <img src='{{image}}' />
-                <div>{{color}}</div>
+                <div>In Stock available: {{in_stock}}</div>
                 <div>R{{price}}</div>
                 <div>
+                  <select id='sizeDropDown'>
+                   <option>select size</option> 
                   {{#each size}}
-                  <label class='size-class'>
-                      {{this}}
-                    <input type='checkbox' value='{{this}}'>
-                  </label>    
+                    <option value='{{this}}' name='sizeCheckbox'> {{this}}</option>    
                   {{/each}}
+                </select>
                 </div>
               {{/each}}  
             </div>
-            <div class='modal-body offset-4'>
+            <div class='body-1 offset-4'>
               <p>{{text}}</p>
             </div>
-            <div class='modal-footer'>
-              <button class='btn btn-secondary' data-dismiss="modal">close</button> 
+            <div class='footer'>
               <button type='button' class='btn btn-success' id='addToCart' name='button' onClick="addMyBusket()"><i class="fas fa-cart-arrow-down"></i>Add To
                 Cart</button>
             </div>
-          </form>
-        </div>
-      </div>
-    </div>   
+        </div>   
   </script>
-  <!--End Modal -->
+  <!-- end shoe search -->
+
+  <!-- All shoes on the screen -->
   <script type='text/x-template' class='all-shoes'>
     <ul>
       {{#each shoes}}
-        <div class='col-3 theShoe' data-toggle='modal' data-target='#{{brand}}'>
+        <div class='col-3 theShoe'>
           <li class='list-inline'>
             <img src='{{image}}'>
+            <button data-toggle='modal' data-target='#{{id}}' class ='quick-view'>Quick View</button>
+            <div>Stock available: {{in_stock}}</div>
             <div>R {{price}}</div>
           </li>
         </div>
       {{/each}}
     </ul>
-  </script>
-  <!-- Modal for selected shoe -->
-  <!-- <script type='text/x-template' class='modalShoe'>
-    <div class='modal fade' id='{{brand}}' tabindex="-1" role='dialog' aria-labelledby="formModalLabel">
-      <div class='modal-dialog' role='document'>
-        <div class='modal-content'>
-          <form class= '{{brand}}shoe'>
-            <div class='modal-body'>
-              {{#each list}}
-              <div class ='row'>
-              <div class= 'offset-1'>
-                <img src={{image}}>      
-                <div>{{price}}</div>
-                <div>{{size}}</div>
-                <div>In stock available: {{in_stock}}</div>
+  </script>  
+  <!-- end of dispaly all -->
+  <!-- Modal for quick view -->
+  <script type='text/x-template' class='shoe-quick-view'>
+    {{#each shoes}}
+    <div class='modal fade' id='{{id}}' tabindex="-1" role='dialog' aria-labelledby="formModalLabel">
+    <div class='modal-dialog' role='document'>
+      <div class='modal-content'>
+        <form>
+          <div class='modal-header'>
+            <button class='btn default' data-dismiss="modal">Close</button>
+          </div>
+          <div class='modal-body'>
+              <img src='{{image}}' />
+              <div>{{color}}</div>
+              <div>R{{price}}</div>
+              <div>
+                  <select>
+                   <option>select size</option> 
+                  {{#each size}}
+                    <option value='{{this}}' name='sizeCheckbox'> {{this}}</option>    
+                  {{/each}}
+                </select>
               </div>
-              <div class='offset-3'>
-                  <button type="button" class='btn btn-primary addCart' name='button' value='{{color}}'><i class="fas fa-cart-arrow-down"></i>Add To
-                    Cart</button>
-              </div>
-            </div>
-            <hr/>
-              {{/each}}
-            </div>
-            <div class='modal-footer'></div>
-          </form>
-        </div>
+          </div>
+        </form>
       </div>
     </div>
-  </script> -->
-  <!-- End Modal for selected shoe -->
+  </div>
+  {{/each}}   
+  </script>
+  <!-- end modal quick view -->
   <script type='text/x-template' class="colorFilter">
     <p>Color:
       <select id ='shoeColor'>
@@ -178,7 +180,9 @@
     <div class='click-span col-2'><i class="fas fa-bars"></i> Menu</div>
     <div id='menu' class=' offset-1'>
     </div>
-    <div class=' col-2 offset-1 cart-arrow-down'><i class="fas fa-cart-arrow-down" data-toggle='modal' data-target='#busket'></i></div>
+    <div class=' col-2 offset-1 cart-arrow-down'>
+      <span><span><i class="fas fa-cart-arrow-down" data-toggle='modal' data-target='#busket'></i>
+    </div>
   </div>
   <div>
   </div>
@@ -188,7 +192,7 @@
       <div id='theBrands'></div>
       <div class='buttonPlace'></div>
     </div>
-    <div class='slider'></div>   
+    <div class='slider'></div>
   </div>
   <div class='container'>
     <div class='row'>
@@ -197,7 +201,7 @@
   </div>
   <div class='row'>
     <div class='col-4'>
-      <div class='display-results'>
+      <div id='display-results'>
       </div>
     </div>
   </div>
@@ -205,8 +209,6 @@
     <div class='col-4'>
     </div>
   </div>
-  
-  <div id='modal-search'></div>
   <div id='modal-busket'></div>
   <script src='https://code.jquery.com/jquery-1.12.0.min.js'></script>
   <script src='js/bootstrap.js'></script>

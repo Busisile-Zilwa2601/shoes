@@ -73,16 +73,15 @@ describe('The Shoe Catalogue function', function(){
       });
       it('It should return a list of object(s) with each object\'s key \"in_stock\" decreased by one', function(){
         var myShoe = shoeCatalogue();
-        myShoe.addToCart(myShoe.filter('White', 5, 'Nike'));
-        myShoe.addToCart(myShoe.filter('Red', 3, 'Nike'));
-        myShoe.addToCart(myShoe.filter('White', 8, 'Jordan'));
+        myShoe.addToCart(myShoe.filter('White', null, 'Nike'), 5);
+        myShoe.addToCart(myShoe.filter('Red', null, 'Nike'), 3);
+        myShoe.addToCart(myShoe.filter('White', null, 'Jordan'), 8);
         console.log(JSON.stringify(myShoe.returnBusket()));
         assert.deepEqual(myShoe.returnBusket(),
         [
-          {"color":"White","brand":"Nike","price":999,"image":"data/whiteNike.jpeg"},
-          {"color":"Red","brand":"Nike","price":849,"image":"data/redNike.jpg"},
-          {"color":"White","brand":"Jordan","price":1500,"image":"data/whiteJordan.jpg"}
-        ]);
+          {"color":"White","brand":"Nike","price":999,"image":"data/whiteNike.jpeg","size":5},
+          {"color":"Red","brand":"Nike","price":849,"image":"data/redNike.jpg","size":3},
+          {"color":"White","brand":"Jordan","price":1500,"image":"data/whiteJordan.jpg","size":8}]);
       });
     });
   });

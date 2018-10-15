@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', function(){
     var output = '';
     for(var val in theList){
       var item = theList[val].trim();
-      output = '<button id = "search" class="btn btn-primary" data-toggle="modal" data-target="#search-shoes">'+item+'</button>';
+      output = '<button id = "search" class="btn btn-primary">'+item+'</button>';
     }
     return output;
   });
