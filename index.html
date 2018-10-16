@@ -34,9 +34,10 @@
           <div class='modal-body'>
             {{#each theBusket}}
               <img src='{{image}}' />
-              <div>{{size}}</div>
+              <div>size: {{size}}</div>
               <div>{{color}}</div>
               <div>R{{price}}</div>
+              <div>Added to Cart: {{qauntity}}</div>
               <hr />
             {{/each}}  
           </div>
@@ -105,17 +106,25 @@
           <div class='modal-header'>
             <button class='btn default' data-dismiss="modal">Close</button>
           </div>
-          <div class='modal-body'>
-              <img src='{{image}}' />
-              <div>{{color}}</div>
-              <div>R{{price}}</div>
-              <div>
-                  <select>
+          <div class='modal-body row'>
+              <div class = ' col-5 bigPicture'><img src='{{image}}' /></div>
+              <div class = 'col-4'>
+                <div>{{name}}</div>
+                <div>{{color}}</div>
+                <div>R{{price}}</div>
+                <div>
+                  <select id='sizeDropDown'>
                    <option>select size</option> 
                   {{#each size}}
-                    <option value='{{this}}' name='sizeCheckbox'> {{this}}</option>    
+                    <option value='{{this}}' name='sizeCheckbox' onChange="selected()"> {{this}}</option>    
                   {{/each}}
-                </select>
+                  </select>
+                </div>
+                <br />
+                <div>
+                    <button type='button' class='btn btn-success' id='addToCart' name='button' onClick="addMyBusket()"><i class="fas fa-cart-arrow-down"></i>Add To
+                      Cart</button>
+                  </div>
               </div>
           </div>
         </form>

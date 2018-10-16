@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', function () {
   //fill the list on menu box;
   function selectedItems() {
     let theColor = changeOnColor();
-    let theBrand = changeOnBrand();  
+    let theBrand = changeOnBrand();
     //-------------------------------------------------------------------------------
     collactor = handlerShoe.filter(theColor, null, theBrand);
     if (collactor.length > 0) {
@@ -65,7 +65,9 @@ document.addEventListener('DOMContentLoaded', function () {
       document.getElementById('all-data').innerHTML = '';
       document.getElementById('all-data').innerHTML = dataSearched;
     } else {
-      let dataSearched = templateSearched({text: 'Out of stock'});
+      let dataSearched = templateSearched({
+        text: 'Out of stock'
+      });
       document.getElementById('all-data').innerHTML = '';
       document.getElementById('all-data').innerHTML = dataSearched;
     }
@@ -95,16 +97,34 @@ document.addEventListener('DOMContentLoaded', function () {
   });
   //-----------------------------------------------------------------------------
   //add to cart
+  //-----------------------------------------------------------------------------
+  //on multile view shoes
+  function selected() {
+    document.querySelectorAll('#sizeDropDown').addEventListener(
+                                                              'change',
+                                                              function(){ 
+                                                                console.log(true);
+                                                                console.log(document.getElementById('sizeDropDown').value)
+                                                              },
+                                                                 true);
+  }
+  //-----------------------------------------------------------------------------
+  //on the single view shoe
   window.addMyBusket = function addMyBusket(){
     let dropDown = document.getElementById('sizeDropDown');
-    let size =  dropDown.options[dropDown.selectedIndex].value
-    let stockReturn = handlerShoe.addToCart(collactor, size);
-    collactor[0].in_stock = stockReturn;
-    let dataSearched = templateSearched({
-      found: collactor
-    });
-    document.getElementById('all-data').innerHTML = '';
-    document.getElementById('all-data').innerHTML = dataSearched;
+    let size = dropDown.options[dropDown.selectedIndex].value;
+    console.log(size);
+    if (size === "select size" || size === '') {
+      alert('Please Select size');
+    } else {
+      let stockReturn = handlerShoe.addToCart(collactor, size);
+      collactor[0].in_stock = stockReturn;
+      let dataSearched = templateSearched({
+        found: collactor
+      });
+      document.getElementById('all-data').innerHTML = '';
+      document.getElementById('all-data').innerHTML = dataSearched;
+    }
   }
   //-------------------------------------------------------------------------------
   //View the items added on the busket
@@ -120,7 +140,7 @@ document.addEventListener('DOMContentLoaded', function () {
   let sourceQuickView = document.querySelector('.shoe-quick-view').innerHTML;
   let templateQuickView = Handlebars.compile(sourceQuickView);
   let dataQuickView = templateQuickView({
-    shoes : handlerShoe.filter('', null, '')
+    shoes: handlerShoe.filter('', null, '')
   });
   document.getElementById('display-results').innerHTML = dataQuickView;
 });
