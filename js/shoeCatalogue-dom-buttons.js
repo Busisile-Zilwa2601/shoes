@@ -76,11 +76,17 @@ document.addEventListener('DOMContentLoaded', function () {
   searchBtn.addEventListener('click', selectedItems);
   //Drop down of color on the Menu
   function changeOnColor() {
+    if(colorBtn.options[colorBtn.selectedIndex].value == 'Select Color'){
+      colorBtn.options[colorBtn.selectedIndex].value = '';
+    }
     return colorBtn.options[colorBtn.selectedIndex].value;
   }
   colorBtn.addEventListener('change', changeOnColor);
   //Drop down for brand search on the menu
   function changeOnBrand() {
+    if(brandBtn.options[brandBtn.selectedIndex].value == 'Select Brand'){
+      brandBtn.options[brandBtn.selectedIndex].value = '';
+    }
     return brandBtn.options[brandBtn.selectedIndex].value;
   }
   brandBtn.addEventListener('change', changeOnBrand);
@@ -98,26 +104,19 @@ document.addEventListener('DOMContentLoaded', function () {
   //-----------------------------------------------------------------------------
   //add to cart
   //-----------------------------------------------------------------------------
-  //on multile view shoes
-  function selected() {
-    document.querySelectorAll('#sizeDropDown').addEventListener(
-                                                              'change',
-                                                              function(){ 
-                                                                console.log(true);
-                                                                console.log(document.getElementById('sizeDropDown').value)
-                                                              },
-                                                                 true);
-  }
-  //-----------------------------------------------------------------------------
-  //on the single view shoe
+  //Adding to basket whatever that is searched from the menu
   window.addMyBusket = function addMyBusket(){
     let dropDown = document.getElementById('sizeDropDown');
     let size = dropDown.options[dropDown.selectedIndex].value;
-    console.log(size);
+    let qty = document.querySelectorAll('input[name = "qty"]:checked');
     if (size === "select size" || size === '') {
       alert('Please Select size');
     } else {
-      let stockReturn = handlerShoe.addToCart(collactor, size);
+      let qtyValue = 0;
+      for(let i=0; i< qty.length; i++){
+        qtyValue += parseInt(qty[i].value);
+      }
+      let stockReturn = handlerShoe.addToCart(collactor, size, qtyValue);
       collactor[0].in_stock = stockReturn;
       let dataSearched = templateSearched({
         found: collactor
@@ -137,10 +136,43 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('modal-busket').innerHTML = dataModal;
   });
   //-------------------------------------------------------------------------------
+  //Quick view Modal
   let sourceQuickView = document.querySelector('.shoe-quick-view').innerHTML;
   let templateQuickView = Handlebars.compile(sourceQuickView);
   let dataQuickView = templateQuickView({
     shoes: handlerShoe.filter('', null, '')
   });
   document.getElementById('display-results').innerHTML = dataQuickView;
+  //------------------------------------------------------------------------------
+  //data in the modals
+  $(document).ready(function(){
+    let temp = handlerShoe.filter('',null,'');
+    for(let i = 0; i < temp.length; i++){
+      $('#'+temp[i].id+'').on('show.bs.modal', function(){
+        let modal = $(this);
+        modal.find('.modal-body button').click(function(){
+          let size = modal.find('.modal-body select').val();
+          let brand = modal.find('.modal-body span').text();
+          let color = modal.find('.modal-color').text();
+          if(temp[i].in_stock > 0 && size != 'select size'){
+            console.log('pass stock');
+            let finalTemp = [{
+              color: color,
+              brand: brand,
+              price: 1000,
+              name : temp[i].name,
+              size: size,
+              image: temp[i].image,
+              id: temp[i].id,
+              in_stock: temp[i].in_stock
+            }];
+            console.log(finalTemp);
+            let stk = handlerShoe.addToCart(finalTemp, size, 1);
+            console.log(stk);
+          }
+        });
+      })
+    }
+  })
+  
 });

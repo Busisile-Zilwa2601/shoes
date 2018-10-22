@@ -3,6 +3,7 @@
 }
 html{
   font-family: 'Lucida Sans', sans-serif;
+  background-color:white;
 }
 [class*='col-']{
   float:left;
@@ -50,7 +51,30 @@ html{
   .buttonPlace{
     float: right;
   }
-  
+  img.bigImage{
+    width : 350px;
+		height: 350px;
+  }
+  #menuBox{
+		margin-top : 0rem;
+		width: 200px;
+		background-color: whitesmoke;  
+		visibility: hidden;
+    padding: 2px 15px;
+    line-height: 1;
+	}
+	.click-span{
+		cursor: pointer;
+		padding-top: 5px;
+	}
+	#header{
+		background-color: aqua;
+		border-radius: 0.05rem;
+		margin-top: 10px;
+		padding: 5px 0px 5px 2px;
+		max-height: 35px;
+		overflow: hidden;
+	}
   .theShoe{
     border: 0.2px;
     width: 200px;
@@ -67,24 +91,25 @@ html{
   .theShoe :hover .quick-view{
     visibility: visible;
   }
+  .fa-cart-arrow-down{
+    cursor: pointer;
+    padding-top: 0px;
+  }
+  div.clickable input{
+    display: inline-block;
+    margin-bottom: 0.5rem;
+    margin-left: 2rem;
+  }
+  div.clickable{
+    padding: 5px ;
+    margin-right: 1px;
+    text-align: center;
+    border-right: 1px solid #E1E1E1;
+    cursor: pointer;
+  }
 }
-.fa-cart-arrow-down{
-  cursor: pointer;
-  padding-top: 0px;
-}
-div.clickable input{
-  display: inline-block;
-  margin-bottom: 0.5rem;
-  margin-left: 2rem;
-}
-div.clickable{
-  padding: 5px ;
-  margin-right: 1px;
-  text-align: center;
-  border-right: 1px solid #E1E1E1;
-  cursor: pointer;
-}
-label.size-class{
+
+/* label.size-class{
   display: inline-block;
   border: 1px black;
   border-radius: 50%;
@@ -97,4 +122,4 @@ label.size-class{
 }
 label.size-class:hover{
   background-color: silver;
-}
+} */

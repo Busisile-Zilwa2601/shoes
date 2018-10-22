@@ -13,7 +13,7 @@
   <script src='js/shoeCatalogue-DOM.js'></script>
   <script src='js/shoeCatalogue-dom-buttons.js'></script>
   <script src='js/shoeCatalogue-logic.js'></script>
-  
+
   <!-- The menu bar -->
   <script type='text/x-template' class='menuBar'>
     {{#each shoes}}
@@ -31,16 +31,18 @@
       <div class='modal-content'>
         <form>
           <div class='modal-header'>On Cart</div>
-          <div class='modal-body'>
-            {{#each theBusket}}
-              <img src='{{image}}' />
+          {{#each theBusket}}
+          <div class='modal-body row'>
+             <div class='col-4'> <img src='{{image}}' /></div>
+             <div class='col-5'>
               <div>size: {{size}}</div>
               <div>{{color}}</div>
               <div>R{{price}}</div>
               <div>Added to Cart: {{qauntity}}</div>
-              <hr />
-            {{/each}}  
+             </div>   
           </div>
+          <hr /> 
+          {{/each}}
           <div class='modal-footer'>
             <button class='btn default'  data-dismiss="modal">close</button> <button>check-Out</button>
           </div>
@@ -56,33 +58,44 @@
     <div class='header'>Results</div>
     <div class='body-1'>
               {{#each found}}
-                <img src='{{image}}' />
+              <div class='row'>
+                <div><img class='bigImage' src='{{image}}' /></div>
+                <div>
                 <div>In Stock available: {{in_stock}}</div>
                 <div>R{{price}}</div>
-                <div>
-                  <select id='sizeDropDown'>
-                   <option>select size</option> 
-                  {{#each size}}
-                    <option value='{{this}}' name='sizeCheckbox'> {{this}}</option>    
-                  {{/each}}
-                </select>
-                </div>
+                  <div >
+                    <select id='sizeDropDown'>
+                    <option>select size</option> 
+                    {{#each size}}
+                      <option value='{{this}}' name='sizeCheckbox'> {{this}}</option>    
+                    {{/each}}
+                  </select>
+                  </div>
+                  <br />
+                  <div>
+                      <input type='checkbox' name='qty'  value='1' />x1
+                      <input type='checkbox' name='qty'  value='2' />x2
+                      <input type='checkbox' name='qty'  value='3' />x3
+                  </div>
+                  <div class='footer'>
+                    <button type='button' class='btn btn-success' id='{{id}}' name='button' onClick="addMyBusket()"><i class="fas fa-cart-arrow-down"></i>Add To
+                      Cart</button>
+                  </div>
+                </div> 
+              </div>
               {{/each}}  
             </div>
             <div class='body-1 offset-4'>
               <p>{{text}}</p>
             </div>
-            <div class='footer'>
-              <button type='button' class='btn btn-success' id='addToCart' name='button' onClick="addMyBusket()"><i class="fas fa-cart-arrow-down"></i>Add To
-                Cart</button>
-            </div>
+            
         </div>   
   </script>
   <!-- end shoe search -->
 
   <!-- All shoes on the screen -->
   <script type='text/x-template' class='all-shoes'>
-    <ul>
+    <ul id='all-shoes'>
       {{#each shoes}}
         <div class='col-3 theShoe'>
           <li class='list-inline'>
@@ -94,12 +107,12 @@
         </div>
       {{/each}}
     </ul>
-  </script>  
+  </script>
   <!-- end of dispaly all -->
   <!-- Modal for quick view -->
   <script type='text/x-template' class='shoe-quick-view'>
     {{#each shoes}}
-    <div class='modal fade' id='{{id}}' tabindex="-1" role='dialog' aria-labelledby="formModalLabel">
+    <div class='modal fade {{name}}' id='{{id}}' tabindex="-1" role='dialog' aria-labelledby="formModalLabel">
     <div class='modal-dialog' role='document'>
       <div class='modal-content'>
         <form>
@@ -107,22 +120,22 @@
             <button class='btn default' data-dismiss="modal">Close</button>
           </div>
           <div class='modal-body row'>
-              <div class = ' col-5 bigPicture'><img src='{{image}}' /></div>
+              <div class = 'col-5 bigPicture' data-image ='{{image}}' ><img src='{{image}}' /></div>
               <div class = 'col-4'>
-                <div>{{name}}</div>
-                <div>{{color}}</div>
+                <div><span>{{brand}}</span> {{name}}</div>
+                <div class = 'modal-color'>{{color}}</div>
                 <div>R{{price}}</div>
                 <div>
-                  <select id='sizeDropDown'>
+                  <select>
                    <option>select size</option> 
                   {{#each size}}
-                    <option value='{{this}}' name='sizeCheckbox' onChange="selected()"> {{this}}</option>    
+                    <option value='{{this}}' data-size='{{this}}' name='sizeCheckbox' onChange="selected()"> {{this}}</option>    
                   {{/each}}
                   </select>
                 </div>
                 <br />
                 <div>
-                    <button type='button' class='btn btn-success' id='addToCart' name='button' onClick="addMyBusket()"><i class="fas fa-cart-arrow-down"></i>Add To
+                    <button type='button' class='btn btn-success' name='button'><i class="fas fa-cart-arrow-down"></i>Add To
                       Cart</button>
                   </div>
               </div>
@@ -134,6 +147,33 @@
   {{/each}}   
   </script>
   <!-- end modal quick view -->
+  <!-- Start viewing the 1 shoe -->
+  <script type="text/x-template" class='shoe-on-view'>
+    {{#each shoes}}
+    <div class='row'>
+      <div class = ' col-5 bigPicture'><img src='{{image}}' /></div>
+      <div class = 'col-4'>
+        <div>{{name}}</div>
+        <div>{{color}}</div>
+        <div>R{{price}}</div>
+        <div>
+          <select id='sizeDropDown'>
+           <option>select size</option> 
+          {{#each size}}
+            <option value='{{this}}' name='sizeCheckbox' onChange="selected()"> {{this}}</option>    
+          {{/each}}
+          </select>
+        </div>
+        <br />
+        <div>
+          <button type='button' class='btn btn-success' id='{{id}}' name='button' onClick="addMyBusket()"><i class="fas fa-cart-arrow-down"></i>Add To
+              Cart</button>
+        </div>
+      </div>
+  </div>
+    {{/each}}
+  </script>
+  <!-- End one shoe view -->
   <script type='text/x-template' class="colorFilter">
     <p>Color:
       <select id ='shoeColor'>
@@ -201,7 +241,7 @@
       <div id='theBrands'></div>
       <div class='buttonPlace'></div>
     </div>
-    <div class='slider'></div>
+    <div class='sliderLogo'></div>
   </div>
   <div class='container'>
     <div class='row'>
@@ -214,12 +254,10 @@
       </div>
     </div>
   </div>
-  <div class='row'>
-    <div class='col-4'>
-    </div>
-  </div>
+  <div class='placeModalSuccess'></div>
   <div id='modal-busket'></div>
   <script src='https://code.jquery.com/jquery-1.12.0.min.js'></script>
+  <script src='js/mobileNav.js'></script>
   <script src='js/bootstrap.js'></script>
 </body>
 

@@ -2,7 +2,6 @@ describe('The Shoe Catalogue function', function(){
   describe('Filtering', function(){
     it('It should return a list of object(s) with all the shoes', function(){
       var myShoes = shoeCatalogue();
-      console.log(JSON.stringify(myShoes.filter('', null, '')));
       assert.deepEqual(myShoes.filter('', null, ''),
       [
         {"color":"Pink","brand":"Nike","price":2199.95,"name":"Epic Reack Flynit","size":[1,2,3,4,5],"image":"data/pinkNike.jpg","id":"image11","in_stock":5},
@@ -84,6 +83,7 @@ describe('The Shoe Catalogue function', function(){
         myShoe.addToCart(myShoe.filter('White', null, 'Nike'), 5);
         myShoe.addToCart(myShoe.filter('Red', null, 'Nike'), 3);
         myShoe.addToCart(myShoe.filter('White', null, 'Jordan'), 8);
+        console.log(JSON.stringify(myShoe.returnBusket()))
         assert.deepEqual(myShoe.returnBusket(),
         [
           {"color":"White","brand":"Nike","price":999.95,"image":"data/whiteNike.jpg","qauntity":1,"size":[5]},

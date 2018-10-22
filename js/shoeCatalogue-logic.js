@@ -15,6 +15,7 @@ function shoeCatalogue() {
       color: 'Pink',
       brand: 'Adidas',
       price: 600,
+      name : 'Adidas Pink 1',
       size: [1, 2, 3, 4, 5],
       image: 'data/pinkAdidas.jpg',
       id: 'image9',
@@ -34,6 +35,7 @@ function shoeCatalogue() {
       color: 'Pink',
       brand: 'Puma',
       price: 799,
+      name : 'Puma Pink 1',
       size: [1, 2, 3, 4, 5],
       image: 'data/pinkPuma.jpg',
       id: 'image12',
@@ -53,6 +55,7 @@ function shoeCatalogue() {
       color: 'White',
       brand: 'Adidas',
       price: 899,
+      name : 'Adidas White 2',
       size: [2, 4, 5, 6, 7, 8, 9, 10],
       image: 'data/whiteAdidas.jpeg',
       id: 'image17',
@@ -62,6 +65,7 @@ function shoeCatalogue() {
       color: 'White',
       brand: 'Jordan',
       price: 1500,
+      name: 'Jordan White 1',
       size: [7, 8, 9, 10],
       image: 'data/whiteJordan.jpg',
       id: 'image19',
@@ -81,6 +85,7 @@ function shoeCatalogue() {
       color: 'White',
       brand: 'Puma',
       price: 799,
+      name : 'Puma White 2',
       size: [4, 5, 6, 9],
       image: 'data/whitePuma.jpeg',
       id: 'image21',
@@ -100,6 +105,7 @@ function shoeCatalogue() {
       color: 'Black',
       brand: 'Adidas',
       price: 799,
+      name: 'adidas Black 3',
       size: [3, 6, 7],
       image: 'data/blackAddidas.jpeg',
       id: 'image1',
@@ -109,6 +115,7 @@ function shoeCatalogue() {
       color: 'Black',
       brand: 'Jordan',
       price: 800,
+      name : 'Jordan Black 2',
       size: [7, 8, 9],
       image: 'data/blackJordan.jpg',
       id: 'image3',
@@ -128,6 +135,7 @@ function shoeCatalogue() {
       color: 'Black',
       brand: 'Puma',
       price: 789,
+      name : 'Puma Black 2',
       size: [6, 7, 8, 9],
       image: 'data/blackPuma.jpeg',
       id: 'image5',
@@ -157,6 +165,7 @@ function shoeCatalogue() {
       color: 'Orange',
       brand: 'Adidas',
       price: 499,
+      name : 'Adidas Orange 4',
       size: [1, 2],
       image: 'data/OrangeAddidas.jpeg',
       id: 'image8',
@@ -176,6 +185,7 @@ function shoeCatalogue() {
       color: 'Red',
       brand: 'Jordan',
       price: 1000,
+      name : 'Jordan Red 3',
       size: [3, 4],
       image: 'data/redJordan.jpg',
       id: 'image14',
@@ -185,6 +195,7 @@ function shoeCatalogue() {
       color: 'Red',
       brand: 'Adidas',
       price: 799,
+      name: 'Adidas Red 5',
       size: [3, 4],
       image: 'data/redAdids.jpg',
       id: 'image13',
@@ -194,6 +205,7 @@ function shoeCatalogue() {
       color: 'Red',
       brand: 'Puma',
       price: 799,
+      name : 'Puma Red 3',
       size: [3, 4],
       image: 'data/redPuma.jpg',
       id: 'image16',
@@ -283,18 +295,21 @@ function shoeCatalogue() {
     return present;
   }
   //------------------------------------------------------------------------------------
-  function addToCart(shoe, sizeSelected) {
+  function addToCart(shoe, sizeSelected, qty) {
+    if(qty === 0 || qty === undefined){
+      qty = 1;
+    }
     let list = returnBusket();
     if (shoe.length != 0 && list.length != 0) {
-      if (shoe[0].in_stock > 0) {
+      if (shoe[0].in_stock - qty > 0) {
           if (isPresent(shoe, list)) {
-            list[pos].qauntity += 1;
+            list[pos].qauntity += qty;
             (list[pos].size).push(sizeSelected);
             console.log(list[pos].size);
-            shoe[0].in_stock -= 1;
+            shoe[0].in_stock -= qty;
           } else {
-            shoe[0].qauntity = 1;
-            shoe[0].in_stock -= 1;
+            shoe[0].qauntity = qty;
+            shoe[0].in_stock -= qty;
             busket.push({
               color: shoe[0].color,
               brand: shoe[0].brand,
@@ -310,8 +325,8 @@ function shoeCatalogue() {
 
     } else if (shoe.length != 0 && list.length == 0) {
       if (shoe[0].in_stock > 0) {
-        shoe[0].qauntity = 1;
-        shoe[0].in_stock -= 1;
+        shoe[0].qauntity = qty;
+        shoe[0].in_stock -= qty;
         busket.push({
           color: shoe[0].color,
           brand: shoe[0].brand,
