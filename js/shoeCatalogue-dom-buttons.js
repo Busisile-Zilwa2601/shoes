@@ -12,11 +12,17 @@ document.addEventListener('DOMContentLoaded', function () {
   //Display all the shoes on the database on window load
   let sourceAllShoes = document.querySelector('.all-shoes').innerHTML;
   let templateAllShoes = Handlebars.compile(sourceAllShoes);
+  let sourceBusketLength = document.querySelector('.busketLength').innerHTML;
+  let templateBusketLength = Handlebars.compile(sourceBusketLength);
   window.addEventListener('load', function () {
     let dataAll = templateAllShoes({
       shoes: handlerShoe.filter('', null, '')
     });
     document.getElementById('all-data').innerHTML = dataAll;
+    let dataBusketLength = templateBusketLength({
+      busketLength: handlerShoe.busketLength()
+    });
+    document.getElementById('basketLength').innerHTML = dataBusketLength
   });
   //------------------------------------------------------------------------
   //Display all shoes of selected brand
@@ -123,6 +129,11 @@ document.addEventListener('DOMContentLoaded', function () {
       });
       document.getElementById('all-data').innerHTML = '';
       document.getElementById('all-data').innerHTML = dataSearched;
+       //returns the cost and number of shoes in the busket    
+       let dataBusketLength = templateBusketLength({
+        busketLength: handlerShoe.busketLength() 
+      });
+      document.getElementById('basketLength').innerHTML = dataBusketLength;
     }
   }
   //-------------------------------------------------------------------------------
@@ -154,21 +165,31 @@ document.addEventListener('DOMContentLoaded', function () {
           let size = modal.find('.modal-body select').val();
           let brand = modal.find('.modal-body span').text();
           let color = modal.find('.modal-color').text();
-          if(temp[i].in_stock > 0 && size != 'select size'){
-            console.log('pass stock');
-            let finalTemp = [{
-              color: color,
-              brand: brand,
-              price: 1000,
-              name : temp[i].name,
-              size: size,
-              image: temp[i].image,
-              id: temp[i].id,
-              in_stock: temp[i].in_stock
-            }];
-            console.log(finalTemp);
-            let stk = handlerShoe.addToCart(finalTemp, size, 1);
-            console.log(stk);
+          let image = modal.find('.modal-image').text();
+          let price = modal.find('.modal-price').text();
+          if(size != 'select size'){
+            if(temp[i].in_stock > 0){
+              let finalTemp = [];
+              finalTemp.push({
+                color: color,
+                brand: brand,
+                price: price,
+                size: size,
+                image: image,
+                in_stock: temp[i].in_stock 
+              });
+              let stk = handlerShoe.addToCart(finalTemp, size, 1);
+              temp[i].in_stock = stk;
+              //returns the cost and number of shoes in the busket    
+              let dataBusketLength = templateBusketLength({
+                busketLength: handlerShoe.busketLength() 
+              });
+              document.getElementById('basketLength').innerHTML = dataBusketLength;
+            }else{
+              alert(temp[i].in_stock+ 'We are out of stock');  
+            }
+          }else{
+            alert('Please select size');  
           }
         });
       })

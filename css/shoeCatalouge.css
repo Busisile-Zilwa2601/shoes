@@ -74,7 +74,12 @@ html{
 		padding: 5px 0px 5px 2px;
 		max-height: 35px;
 		overflow: hidden;
-	}
+  }
+  #basketLength{
+    background-color: whitesmoke;
+    border-radius: 1rem;
+    padding: 5px 5px 0px 5px;
+  }
   .theShoe{
     border: 0.2px;
     width: 200px;

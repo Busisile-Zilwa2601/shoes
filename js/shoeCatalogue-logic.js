@@ -290,6 +290,7 @@ function shoeCatalogue() {
          value[0].image === list[i].image){
            pos = i;
            present = true;
+           return present;
       }
     }
     return present;
@@ -301,11 +302,10 @@ function shoeCatalogue() {
     }
     let list = returnBusket();
     if (shoe.length != 0 && list.length != 0) {
-      if (shoe[0].in_stock - qty > 0) {
+      if (shoe[0].in_stock - qty >= 0) {
           if (isPresent(shoe, list)) {
             list[pos].qauntity += qty;
             (list[pos].size).push(sizeSelected);
-            console.log(list[pos].size);
             shoe[0].in_stock -= qty;
           } else {
             shoe[0].qauntity = qty;
@@ -322,7 +322,6 @@ function shoeCatalogue() {
         
         return shoe[0].in_stock;
       }
-
     } else if (shoe.length != 0 && list.length == 0) {
       if (shoe[0].in_stock > 0) {
         shoe[0].qauntity = qty;
@@ -338,6 +337,24 @@ function shoeCatalogue() {
       }
       return shoe[0].in_stock;
     }
+  }
+  //------------------------------------------------------------
+  // Return the number of shoes added on the busket
+  function busketLength(){
+    var list = returnBusket();
+    console.log(list);
+    let numberOfShoes = 0;
+    let cost = 0;
+    let myBusket = [];
+    for(let i=0; i< list.length; i++){
+      numberOfShoes += list[i].qauntity;
+      cost += list[i].price * list[i].qauntity; 
+    }
+    myBusket.push({
+      cost: cost.toFixed(2),
+      amount : numberOfShoes
+    });
+    return myBusket;
   }
   //------------------------------------------------------------
   function checkOutAll() {
@@ -389,6 +406,7 @@ function shoeCatalogue() {
     addToCart,
     addNewShoe,
     returnBusket,
+    busketLength,
     checkOutAll,
     getBrands,
     filterByBrand
